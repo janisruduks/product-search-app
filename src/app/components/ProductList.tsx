@@ -8,6 +8,7 @@ interface Props {
 }
 
 const ProductList: React.FC<Props> = ({ currentItems }) => {
+
     return (
         <div className="grid gap-3 lg:grid-cols-4 m-3 dark:text-white">
             {currentItems.length > 0 ? (

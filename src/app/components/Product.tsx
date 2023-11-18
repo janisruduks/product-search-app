@@ -1,23 +1,27 @@
 import React from "react";
 import Link from "next/link";
 import { ProductType } from "../types/types";
+import { useProductContext } from "../contexts/ProductContext";
 
-interface ItemProps {
+interface ProductProps {
     product: ProductType;
 }
 
-const Product: React.FC<ItemProps> = ({ product }) => {
+const Product: React.FC<ProductProps> = ({ product }) => {
+    const { setSelectedProduct } = useProductContext();
+
+    const onProductClick = (product: ProductType) => {
+        setSelectedProduct(product);
+    };
+
     return (
-        <div className="m-3 p-6 h-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:border-blue-500 relative">
+        <div
+            onClick={() => onProductClick(product)}
+            className="m-3 p-6 h-full bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700 hover:border-blue-500 relative"
+        >
             <Link
                 href={{
                     pathname: `/products/${product.id}`,
-                    query: {
-                        name: product.name,
-                        description: product.description,
-                        price: product.price,
-                        category: product.category,
-                    },
                 }}
             >
                 <div className="flex-grow">
@@ -28,12 +32,12 @@ const Product: React.FC<ItemProps> = ({ product }) => {
                         {product.category}
                     </p>
                 </div>
+                <div className="absolute bottom-4 right-4">
+                    <h6 className="text-gray-900 dark:text-white font-semibold">
+                        {product.price} {product.currency}
+                    </h6>
+                </div>
             </Link>
-            <div className="absolute bottom-4 right-4">
-                <h6 className="text-gray-900 dark:text-white font-semibold">
-                    {product.price} {product.currency}
-                </h6>
-            </div>
         </div>
     );
 };

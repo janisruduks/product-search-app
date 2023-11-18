@@ -1,11 +1,11 @@
 "use client";
-
 import React, { useEffect, useState, useCallback } from "react";
+import { ProductType } from "./types/types";
 
 import Pagination from "./components/Pagination";
 import SearchBar from "./components/SearchBar";
 import ProductList from "./components/ProductList";
-import { ProductType } from "./types/types";
+import Alert from "./components/Alert"
 
 const ITEMS_PER_PAGE = 4;
 
@@ -14,6 +14,7 @@ export default function Home() {
     const [allProducts, setAllProducts] = useState<ProductType[]>([]);
     const [filteredProducts, setFilteredProducts] = useState<ProductType[]>([]);
     const [currentItems, setCurrentItems] = useState<ProductType[]>([]);
+    const [alert, setAlert] = useState(false);
 
     const fetchItems = async () => {
         try {
@@ -21,7 +22,7 @@ export default function Home() {
             const data = await response.json();
             setAllProducts(data.products);
         } catch (error) {
-            console.error("Error fetching data:", error);
+            setAlert(true);
         }
     };
 
@@ -51,7 +52,8 @@ export default function Home() {
     }, [filteredProducts, handlePaginationChange]);
 
     return (
-        <main className="justify-between lg:p-8 p-6">
+        <main className="p-6">
+            { alert && <Alert message="Failed to fetch data, please try again." />}
             <SearchBar handleExchange={handleSetSearchValue} />
             <ProductList currentItems={currentItems} />
             <Pagination 
