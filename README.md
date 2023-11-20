@@ -29,13 +29,13 @@ cd product-search-app
 Install dependencies
 
 ```bash
-  npm install
+npm install
 ```
 
 Start the server
 
 ```bash
-  npm run dev
+npm run dev
 ```
 
 
@@ -44,6 +44,6 @@ Start the server
 To run tests, run the following command
 
 ```bash
-  npm run test
+npm run test
 ```
 
