@@ -26,7 +26,7 @@ describe("Product Component", () => {
         const productLink = screen.getByRole("link");
         expect(productLink).toHaveAttribute(
             "href",
-            `/products/${mockProduct.id}?name=Product&description=test+product&price=100&category=products`
+            `/products/${mockProduct.id}`
         );
     });
 });
